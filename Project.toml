@@ -1,0 +1,17 @@
+name = "HelpMode"
+uuid = "d604bba5-03cb-4add-b28c-bb8c2d5a7793"
+version = "0.1.0"
+authors = ["WooKyoung Noh <wookay.noh@gmail.com>"]
+
+[deps]
+REPL = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
+
+[compat]
+Jive = "0.3"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+Jive = "ba5e3d4b-8524-549f-bc71-e76ad9e9deed"
+
+[targets]
+test = ["Test", "Jive"]
