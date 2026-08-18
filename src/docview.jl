@@ -6,6 +6,10 @@ function register(f)
     push!(_custom_helpmodes, f)
 end
 
+function modes()
+    return _custom_helpmodes
+end
+
 function unregister(f)
     idx = findfirst(==(f), _custom_helpmodes)
     idx !== nothing && deleteat!(_custom_helpmodes, idx)
@@ -21,6 +25,7 @@ end
 using REPL: REPL
 using .REPL: extended_help_on, keywords, isexpr
 import .REPL: _helpmode
+
 # from julia/stdlib/REPL/src/docview.jl
 # function _helpmode(io::IO, line::AbstractString, mod::Module=Main, internal_accesses::Union{Nothing, Set{Pair{Module,Symbol}}}=nothing)
 function _helpmode(io::Base.TTY, line::AbstractString, mod::Module=Main, internal_accesses::Union{Nothing, Set{Pair{Module,Symbol}}}=nothing)

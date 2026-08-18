@@ -7,7 +7,9 @@ function custom_helpmode(io::IO, line::AbstractString)::Bool
 end
 
 HelpMode.register(custom_helpmode)
+@test length(HelpMode.modes()) == 1
 HelpMode.unregister(custom_helpmode)
+@test length(HelpMode.modes()) == 0
 
 @test isempty(HelpMode._custom_helpmodes)
 
