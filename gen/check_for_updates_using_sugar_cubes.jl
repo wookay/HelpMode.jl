@@ -25,10 +25,11 @@ function check_the_code_block_diff(src_path::String,
     println(stdout)
 end
 
+# Meta.parse(line; raise = false, depwarn = false, mod)
 check_the_code_block_diff(
     "src/docview.jl",
     :(function _helpmode(io::Base.TTY, line::AbstractString, mod::Module=Main, internal_accesses::Union{Nothing, Set{Pair{Module,Symbol}}}=nothing) end),
     "sources/stdlib/REPL/src/docview.jl",
     :(function _helpmode(io::IO, line::AbstractString, mod::Module=Main, internal_accesses::Union{Nothing, Set{Pair{Module,Symbol}}}=nothing) end) ;
-    skip_lines = (src = Int[2], dest = Int[])
+    skip_lines = (src = vcat(2, 20:24), dest = Int[19])
 )

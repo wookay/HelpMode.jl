@@ -30,7 +30,7 @@ import .REPL: _helpmode
 # function _helpmode(io::IO, line::AbstractString, mod::Module=Main, internal_accesses::Union{Nothing, Set{Pair{Module,Symbol}}}=nothing)
 function _helpmode(io::Base.TTY, line::AbstractString, mod::Module=Main, internal_accesses::Union{Nothing, Set{Pair{Module,Symbol}}}=nothing)
     line = strip(line)
-    check_custom_helpmode(io, line) && return
+    check_custom_helpmode(io, line) && return #
     ternary_operator_help = (line == "?" || line == "?:")
     if startswith(line, '?') && !ternary_operator_help
         line = line[2:end]
@@ -48,7 +48,11 @@ function _helpmode(io::Base.TTY, line::AbstractString, mod::Module=Main, interna
             line = "#"
         end
     end
-    x = Meta.parse(line; raise = false, depwarn = false, mod)
+    if VERSION >= v"1.14.0-DEV.3593" # julia commit f6648d551d
+        x = Meta.parse(line; raise = false, depwarn = false, mod)
+    else
+        x = Meta.parse(line; raise = false, depwarn = false)
+    end
     assym = Symbol(line)
     expr =
         if haskey(keywords, assym) || Base.isoperator(assym) || isexpr(x, :error) ||
